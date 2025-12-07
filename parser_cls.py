@@ -215,7 +215,7 @@ class AvitoParse:
 
             if ads_in_link:
                 logger.info(f"Сохраняю в Excel {len(ads_in_link)} объявлений")
-                self.__save_data(ads=ads_in_link)
+                self._save_data(ads=ads_in_link)
             else:
                 logger.info("Сохранять нечего")
 
@@ -451,7 +451,7 @@ class AvitoParse:
 
         return f"result/{title_file}.xlsx"
 
-    def __save_data(self, ads: list[Item]) -> None:
+    def _save_data(self, ads: list[Item]) -> None:
         """Сохраняет результат в файл keyword*.xlsx и в БД"""
         try:
             self.xlsx_handler.append_data_from_page(ads=ads)
