@@ -221,7 +221,7 @@ class AvitoParse:
                 filter_ads = self.parse_views(ads=filter_ads)
 
                 if filter_ads:
-                    self.__save_viewed(ads=filter_ads)
+                    self._save_viewed(ads=filter_ads)
 
                     if self.config.save_xlsx:
                         ads_in_link.extend(filter_ads)
@@ -233,7 +233,7 @@ class AvitoParse:
 
             if ads_in_link:
                 logger.info(f"Сохраняю в Excel {len(ads_in_link)} объявлений")
-                self.__save_data(ads=ads_in_link)
+                self._save_data(ads=ads_in_link)
             else:
                 logger.info("Сохранять нечего")
 
@@ -473,14 +473,14 @@ class AvitoParse:
 
         return f"result/{title_file}.xlsx"
 
-    def __save_data(self, ads: list[Item]) -> None:
+    def _save_data(self, ads: list[Item]) -> None:
         """Сохраняет результат в файл keyword*.xlsx и в БД"""
         try:
             self.xlsx_handler.append_data_from_page(ads=ads)
         except Exception as err:
             logger.info(f"При сохранении в Excel ошибка {err}")
 
-    def __save_viewed(self, ads: list[Item]) -> None:
+    def _save_viewed(self, ads: list[Item]) -> None:
         """Сохраняет просмотренные объявления"""
         try:
             self.db_handler.add_record_from_page(ads=ads)
