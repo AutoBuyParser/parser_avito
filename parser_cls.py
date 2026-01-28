@@ -13,17 +13,17 @@ from loguru import logger
 from pydantic import ValidationError
 from requests.cookies import RequestsCookieJar
 
-from common_data import HEADERS
-from db_service import SQLiteDBHandler
-from dto import Proxy, AvitoConfig
-from get_cookies import get_cookies
-from hide_private_data import log_config
-from load_config import load_avito_config
-from models import ItemsResponse, Item
-from tg_sender import SendAdToTg
-from vk_sender import SendAdToVK
-from version import VERSION
-from xlsx_service import XLSXHandler
+from .common_data import HEADERS
+from .db_service import SQLiteDBHandler
+from .dto import Proxy, AvitoConfig
+from .get_cookies import get_cookies
+from .hide_private_data import log_config
+from .load_config import load_avito_config
+from .models import ItemsResponse, Item
+from .tg_sender import SendAdToTg
+from .vk_sender import SendAdToVK
+from .version import VERSION
+from .xlsx_service import XLSXHandler
 
 DEBUG_MODE = False
 

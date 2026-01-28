@@ -4,7 +4,7 @@ import re
 
 from loguru import logger
 
-from models import Item
+from .models import Item
 
 
 class SendAdToVK:

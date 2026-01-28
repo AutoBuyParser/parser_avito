@@ -3,7 +3,7 @@ from pathlib import Path
 
 import tomli_w
 
-from dto import AvitoConfig
+from .dto import AvitoConfig
 
 
 def load_avito_config(path: str = "config.toml") -> AvitoConfig:

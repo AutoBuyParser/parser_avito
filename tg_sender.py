@@ -4,7 +4,7 @@ import re
 
 from loguru import logger
 
-from models import Item
+from .models import Item
 
 class SendAdToTg:
     def __init__(self, bot_token: str, chat_id: list, max_retries: int = 5, retry_delay: int = 5):
