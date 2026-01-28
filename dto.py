@@ -23,6 +23,7 @@ class AvitoConfig:
     proxy_change_url: Optional[str] = None
     keys_word_white_list: List[str] = field(default_factory=list)
     keys_word_black_list: List[str] = field(default_factory=list)
+    keys_word_black_list_description: List[str] = field(default_factory=list)
     seller_black_list: List[str] = field(default_factory=list)
     count: int = 1
     tg_token: Optional[str] = None
