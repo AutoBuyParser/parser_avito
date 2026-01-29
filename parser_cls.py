@@ -38,10 +38,10 @@ class AvitoParse:
     ):
         self.config = config
         self.proxy_obj = self.get_proxy_obj()
-        self.db_handler = SQLiteDBHandler()
+        self._db_handler = None
         self.tg_handler = self.get_tg_handler()
         self.vk_handler = self.get_vk_handler()
-        self.xlsx_handler = XLSXHandler(self.__get_file_title())
+        self._xlsx_handler = None
         self.stop_event = stop_event
         self.cookies = None
         self.session = requests.Session()
@@ -50,6 +50,18 @@ class AvitoParse:
         self.bad_request_count = 0
 
         log_config(config=self.config, version=VERSION)
+
+    @property
+    def db_handler(self):
+        if self._db_handler is None:
+            self._db_handler = SQLiteDBHandler()
+        return self._db_handler
+
+    @property
+    def xlsx_handler(self):
+        if self._xlsx_handler is None:
+            self._xlsx_handler = XLSXHandler(self.__get_file_title())
+        return self._xlsx_handler
 
     def get_tg_handler(self) -> SendAdToTg | None:
         if all([self.config.tg_token, self.config.tg_chat_id]):
@@ -173,7 +185,7 @@ class AvitoParse:
 
     def parse(self):
         if self.config.one_file_for_link:
-            self.xlsx_handler = None
+            self._xlsx_handler = None
 
         for _index, url in enumerate(self.config.urls):
             ads_in_link = []
@@ -191,8 +203,8 @@ class AvitoParse:
                     time.sleep(self.config.pause_between_links)
                     continue
 
-                if not self.xlsx_handler and self.config.one_file_for_link:
-                    self.xlsx_handler = XLSXHandler(f"result/{_index + 1}.xlsx")
+                if not self._xlsx_handler and self.config.one_file_for_link:
+                    self._xlsx_handler = XLSXHandler(f"result/{_index + 1}.xlsx")
 
                 data_from_page = self.find_json_on_page(html_code=html_code)
                 try:
@@ -238,7 +250,7 @@ class AvitoParse:
                 logger.info("Сохранять нечего")
 
             if self.config.one_file_for_link:
-                self.xlsx_handler = None
+                self._xlsx_handler = None
 
         logger.info(f"Хорошие запросы: {self.good_request_count}шт, плохие: {self.bad_request_count}шт")
 
