@@ -4,6 +4,7 @@ from dto import AvitoConfig
 
 from parser.export.base import ResultStorage
 from parser.export.excel import ExcelStorage
+from parser.export.sqlite import SQLiteStorage
 from parser.export.composite import CompositeResultStorage, NullResultStorage
 
 
@@ -17,6 +18,9 @@ def build_result_storage(
     if config.save_xlsx:
         file_path = _build_excel_path(config, link_index)
         storages.append(ExcelStorage(file_path))
+    else:
+        db_name = Path("result.db")
+        storages.append(SQLiteStorage(db_name))
 
     if not storages:
         return NullResultStorage()
