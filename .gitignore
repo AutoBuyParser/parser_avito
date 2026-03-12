@@ -211,6 +211,7 @@ __marimo__/
 
 # DataBase
 database.db
+result.db
 
 # Config
 config.toml
